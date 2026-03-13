@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+{% block title %}Share comment{% endblock %}
+
+{% block content %}
+<h1>Share Comment</h1>
+
+{% if sent %}
+    <p class="success">
+        The comment has been successfully shared!
+    </p>
+{% else %}
+    <h2>Share "{{ comment.body|truncatewords:5 }}" with a friend</h2>
+    
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Share"></p>
+    </form>
+{% endif %}
+
+<hr>
+<h3>Comment:</h3>
+<p><strong>{{ comment.name }}</strong> said:</p>
+<p>{{ comment.body }}</p>
+<p><small>On: <a href="{{ comment.post.get_absolute_url }}">{{ comment.post.title }}</a></small></p>
+{% endblock %}
